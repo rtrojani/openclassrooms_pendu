@@ -32,19 +32,25 @@ char	ask_char(void)
 	return (c);
 }
 
-void	hangman_game(char *secret_word, char *clone_word)
+int		hangman_game(char *secret_word, char *clone_word)
 {
 	char	c;
 	int		i;
+	int		good_answer;
 
 	c = ask_char();
 	i = 0;
+	good_answer = 0;
 	while (secret_word[i] != '\0')
 	{
 		if (secret_word[i] == c)
+		{
 			clone_word[i] = secret_word[i];
+			good_answer = 1;
+		}
 		i++;
 	}
+	return (good_answer);
 }
 
 int		main(void)
@@ -54,6 +60,7 @@ int		main(void)
 	int		i = 0;
 	int		hint_count = 10;
 	int		found = 0;
+	int		good_answer = 0;
 
 	printf("*****Bienvenue dans le pendu !*****\n\n");
 	while (secret_word[i] != '\0')
@@ -67,7 +74,7 @@ int		main(void)
 	{
 		printf("%s\n", clone_word);
 		printf("Il vous reste %d tentative(s).\n", hint_count);
-		hangman_game(secret_word, clone_word);
+		good_answer = hangman_game(secret_word, clone_word);
 		found = 1;
 		i = 0;
 		while (clone_word[i] != '\0')
@@ -76,11 +83,12 @@ int		main(void)
 				found = 0;
 			i++;
 		}
-		hint_count--;
+		if (good_answer == 0)
+			hint_count--;
 	}
 	if (hint_count == 0)
 			printf("Vous avez perdu !\nVous êtes pendu ! X(\n");
 	else
-		printf("Bravo, le mot mystère était bien %s\n", clone_word);
+		printf("Bravo, le mot mystère était bien %s !\n", clone_word);
 	return (0);
 }
