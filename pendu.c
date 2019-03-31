@@ -1,35 +1,33 @@
 #include <stdio.h>
 #include <stdlib.h>
 
-char	check_char(void)
+int		check_char(char c)
 {
-	int		given_char;
-
-	printf("Choisissez une lettre :\n");
-	given_char = getchar();
 	while (getchar() != '\n')
 	{
 		while (getchar() != '\n');
-		printf("Votre saisie est invalide.\nChoisissez une lettre :\n");
-		given_char = getchar();
+		return (0);
 	}
-	return ((char)given_char);
+	while (!((c >= 65 && c <= 90) || (c = 97 && c <= 122)))
+		return (0);
+	return (1);
 }
 
 char	ask_char(void)
 {
-	char	c;
+	char	given_char;
 
-	c = check_char();
-	while (!((c >= 65 && c <= 90) || (c >= 97 && c <= 122)))
+	printf("Choisissez une lettre :\n");
+	given_char = getchar();
+	while (check_char(given_char) != 1)
 	{
-		printf("Votre saisie est invalide.\n");
-		c = check_char();
+		printf("Votre saisie est invalide.\nChoisissez une lettre :\n");
+		given_char = getchar();
 	}
-	if (c >= 97 && c <= 122)
-		c = c - 32; 
-	printf("Vous avez choisi la lettre %c.\n\n", c);
-	return (c);
+	if (given_char >= 97 && given_char <= 122)
+		given_char = given_char - 32; 
+	printf("Vous avez choisi la lettre %c.\n\n", given_char);
+	return (given_char);
 }
 
 int		hangman_game(char *secret_word, char *clone_word)
