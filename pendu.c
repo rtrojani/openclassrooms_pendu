@@ -54,7 +54,7 @@ int		hangman_game(char *secret_word, char *clone_word)
 int		main(void)
 {
 	char	*secret_word = "TOPINAMBOUR";
-	char	clone_word[7] = {0};
+	char	clone_word[11] = {0};
 	int		i = 0;
 	int		hint_count = 10;
 	int		found = 0;
@@ -67,7 +67,6 @@ int		main(void)
 		i++;
 	}
 	clone_word[i] = '\0';
-
 	while (hint_count > 0 && found == 0)
 	{
 		printf("%s\n", clone_word);
@@ -88,5 +87,5 @@ int		main(void)
 			printf("Vous avez perdu !\nVous êtes pendu ! X(\n");
 	else
 		printf("Bravo, le mot mystère était bien %s !\n", clone_word);
-	return (0);
+	return 0;
 }
