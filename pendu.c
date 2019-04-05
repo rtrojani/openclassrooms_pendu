@@ -2,6 +2,17 @@
 #include <stdlib.h>
 
 char	ask_char(void);
+int		pick_word(char *secret_word);
+
+int		ft_strlen(char *str)
+{
+	int		i;
+
+	i = 0;
+	while (str[i] != '\0')
+		i++;
+	return (i);
+}
 
 int		hangman_game(char *secret_word, char *clone_word)
 {
@@ -26,14 +37,16 @@ int		hangman_game(char *secret_word, char *clone_word)
 
 int		main(void)
 {
-	char	*secret_word = "TOPINAMBOUR";
-	char	clone_word[11] = {0};
+	char	secret_word[25] = {0};
+	char	*clone_word;
 	int		i = 0;
 	int		hint_count = 10;
 	int		found = 0;
 	int		good_answer = 0;
 
 	printf("*****Bienvenue dans le pendu !*****\n\n");
+	pick_word(secret_word);
+	clone_word = malloc(sizeof(char) * ft_strlen(secret_word));
 	while (secret_word[i] != '\0')
 	{
 		clone_word[i] = '*';
